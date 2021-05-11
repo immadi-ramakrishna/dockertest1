@@ -3,7 +3,8 @@ pipeline {
     stages {
 
         stage('Clone Repo') {
-          steps {  
+          steps {
+              sh 'rm -rf dockertest1'
             sh 'git clone https://github.com/ck2135/dockertest1.git'
             }
         }
@@ -18,6 +19,7 @@ pipeline {
 
         stage('Push Image to Docker Hub') {
           steps {
+            sh 'docker registry rmi charan2135/pipelinetest:05-2021'
             sh 'docker push charan2135/pipelinetest:05-2021'
             }
         }
