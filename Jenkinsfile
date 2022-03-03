@@ -1,4 +1,4 @@
-pipline {
+pipeline {
     agent any
     stages {
 
@@ -19,7 +19,7 @@ pipline {
             
         stage('Push Image to Docker Hub') {
           steps {  
-            sh 'docker push charan2135/pipelinetest:v1'
+            sh 'docker push charan2135/pipelinetest2:v1'
           }
         }
             
