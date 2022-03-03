@@ -25,8 +25,8 @@ pipline {
             
         stage('Deploy to Docker Host') {
           steps {
-            sh 'docker -H tcp:/10.0.0.200:2375 stop webapp1'
-            sh 'docker -H tcp:/10.0.0.200:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:v1'
+            sh 'docker -H tcp:/10.0.0.250:2375 stop webapp1'
+            sh 'docker -H tcp:/10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:v1'
            }
         }
             
