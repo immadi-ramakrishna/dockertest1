@@ -1,9 +1,5 @@
 pipeline {
     agent any
-
-    environment {
-      DOCKER_TAG = getVersion()
-    }
     stages {
 
         stage('Clone Repo') {
@@ -12,14 +8,14 @@ pipeline {
             sh 'git clone https://github.com/ck2135/dockertest1.git'
           }
         }
-
+      environment {
+        DOCKER_TAG = getVersion()
+      }
         
         stage('Build Docker Image') {
           steps {  
             sh 'cd /var/lib/jenkins/workspace/pipeline2/dockertest1'
             sh 'cp /var/lib/jenkins/workspace/pipeline2/dockertest1/* /var/lib/jenkins/workspace/pipeline2'
-            sh 'rm -rf /var/lib/jenkins/workspace/pipeline2/dockertest1/*'
-
             sh 'docker build -t charan2135/pipelinetest2:${DOCKER_TAG} .'
           }
         }
@@ -46,7 +42,7 @@ fi'''
         stage('Check WebApp Reachablity') {
           steps {
             sh 'sleep 10s'
-            sh 'curl http://ec2-3-109-186-180.ap-south-1.compute.amazonaws.com:9000'
+            sh 'curl http://ec2-13-233-125-87.ap-south-1.compute.amazonaws.com:9000'
           } 
         }
     }
