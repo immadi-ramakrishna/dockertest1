@@ -25,22 +25,21 @@ pipeline {
             
         stage('Deploy to Docker Host') {
           steps {
-            script {
-                if ( ! '$(docker -H tcp://10.0.0.250:2375 ps -q -f name=webapp1)' )
-
-                  if ( '$(docker -H tcp://10.0.0.250:2375 ps -aq -f status=exited -f name=webapp1)' ) 
-                      sh 'docker -H tcp://10.0.0.250:2375 rm webapp1'
-                  fi
-                  sh 'docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:v1'    
-                fi  
-          }
+            sh '''if [ ! "$(docker -H tcp://10.0.0.250:2375 ps -q -f name=webapp1)" ]; then
+    if [ "$(docker -H tcp://10.0.0.250:2375 ps -aq -f status=exited -f name=webapp1)" ]; then
+        # cleanup
+        docker -H tcp://10.0.0.250:2375 rm webapp1
+    fi
+    # run your container
+    docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:v1
+fi'''             
           } 
         }
             
         stage('Check WebApp Reachablity') {
           steps {
             sh 'sleep 10s'
-            sh 'curl http://ec2-3-110-157-48.ap-south-1.compute.amazonaws.com:9000'
+            sh 'curl http://ec2-13-233-125-87.ap-south-1.compute.amazonaws.com:9000'
           } 
         }
     }
