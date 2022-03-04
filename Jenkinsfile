@@ -13,9 +13,7 @@ pipeline {
           steps {  
             sh 'cd /var/lib/jenkins/workspace/pipeline2/dockertest1'
             sh 'cp /var/lib/jenkins/workspace/pipeline2/dockertest1/* /var/lib/jenkins/workspace/pipeline2'
-            sh '''VERSION=$(date +%H-%M)
-
-            docker build -t charan2135/pipelinetest2:${VERSION} .'''
+            sh 'docker build -t charan2135/pipelinetest2:v2 .'
           }
         }
             
