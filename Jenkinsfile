@@ -32,6 +32,7 @@ pipeline {
             
         stage('Deploy to Docker Host') {
           steps {
+	    sh 'docker -H tcp://10.0.0.250:2375 stop webapp1'
             sh 'docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:${DOCKER_TAG}'
           } 
         }
@@ -39,7 +40,7 @@ pipeline {
         stage('Check WebApp Reachablity') {
           steps {
             sh 'sleep 10s'
-            sh 'curl http://ec2-3-109-186-180.ap-south-1.compute.amazonaws.com:9000'
+            sh 'curl http://ec2-3-108-223-24.ap-south-1.compute.amazonaws.com:9000'
           } 
         }
     }
