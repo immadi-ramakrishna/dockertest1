@@ -13,13 +13,15 @@ pipeline {
           steps {  
             sh 'cd /var/lib/jenkins/workspace/pipeline2/dockertest1'
             sh 'cp /var/lib/jenkins/workspace/pipeline2/dockertest1/* /var/lib/jenkins/workspace/pipeline2'
-            sh 'docker build -t charan2135/pipelinetest2:v1 .'
+            sh '''VERSION=$(date +%H-%M-%S)
+
+            docker build -t charan2135/pipelinetest2:${VERSION} .'''
           }
         }
             
         stage('Push Image to Docker Hub') {
           steps {  
-            sh 'docker push charan2135/pipelinetest2:v1'
+            sh 'docker push charan2135/pipelinetest2:${VERSION}'
           }
         }
             
@@ -31,7 +33,7 @@ pipeline {
         docker -H tcp://10.0.0.250:2375 rm webapp1
     fi
     # run your container
-    docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:v1
+    docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:${VERSION}
 fi'''             
           } 
         }
