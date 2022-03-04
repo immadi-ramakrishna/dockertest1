@@ -25,16 +25,21 @@ pipeline {
             
         stage('Deploy to Docker Host') {
           steps {
-            sh 'docker -H tcp://10.0.0.250:2375 stop webapp1'
-            sh 'docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:v1'
-           }
+            script {
+                    if (sh 'docker -H tcp://10.0.0.250:2375 ps | grep -i webapp1' == 'webapp1') {
+                        sh 'docker -H tcp://10.0.0.250:2375 stop webapp1'
+                    } else {
+                        echo 'I execute'
+                        sh 'docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:v1'
+                    }    
+          } 
         }
             
         stage('Check WebApp Reachablity') {
           steps {
             sh 'sleep 10s'
-            sh 'curl http://ec2-13-127-213-130.ap-south-1.compute.amazonaws.com:9000'
-           } 
+            sh 'curl http://ec2-3-110-157-48.ap-south-1.compute.amazonaws.com:9000'
+          } 
         }
     }
 }
