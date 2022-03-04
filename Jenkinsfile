@@ -9,7 +9,7 @@ pipeline {
           }
         }
       environment {
-        DOCKER_TAG = "getVersion()"
+        DOCKER_TAG = getVersion()
       }
         
         stage('Build Docker Image') {
