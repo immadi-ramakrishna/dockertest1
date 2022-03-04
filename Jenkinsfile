@@ -19,7 +19,7 @@ pipeline {
           steps {  
             sh 'cd /var/lib/jenkins/workspace/pipeline2/dockertest1'
             sh 'cp /var/lib/jenkins/workspace/pipeline2/dockertest1/* /var/lib/jenkins/workspace/pipeline2'
-
+            sh 'rm -rf /var/lib/jenkins/workspace/pipeline2/dockertest1/*'
             sh 'docker build -t charan2135/pipelinetest2:${DOCKER_TAG} .'
           }
         }
