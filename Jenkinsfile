@@ -46,7 +46,7 @@ fi'''
         stage('Check WebApp Reachablity') {
           steps {
             sh 'sleep 10s'
-            sh 'curl http://ec2-13-233-125-87.ap-south-1.compute.amazonaws.com:9000'
+            sh 'curl http://ec2-3-109-186-180.ap-south-1.compute.amazonaws.com:9000'
           } 
         }
     }
