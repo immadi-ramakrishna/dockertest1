@@ -38,7 +38,7 @@ pipeline {
         docker -H tcp://10.0.0.250:2375 rm webapp1
     fi
     # run your container
-    docker -H tcp://10.0.0.250:2375 run -dit --name webapp --hostname webapp -p 9000:80 charan2135/pipelinetest2:${DOCKER_TAG}
+    docker -H tcp://10.0.0.250:2375 run -dit --name webapp --hostname webapp -p 5000:80 charan2135/pipelinetest2:${DOCKER_TAG}
 fi'''
           } 
         }
@@ -46,7 +46,7 @@ fi'''
         stage('Check WebApp Reachablity') {
           steps {
             sh 'sleep 10s'
-            sh 'curl http://ec2-13-126-54-65.ap-south-1.compute.amazonaws.com:9000'
+            sh 'curl http://ec2-13-126-54-65.ap-south-1.compute.amazonaws.com:5000'
           } 
         }
     }
