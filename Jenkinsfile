@@ -38,7 +38,7 @@ pipeline {
         docker -H tcp://10.0.0.250:2375 rm webapp1
     fi
     # run your container
-    docker -H tcp://10.0.0.250:2375 run -dit --name webapp --hostname webapp -p 5000:80 charan2135/pipelinetest2:${DOCKER_TAG}
+    docker -H tcp://10.0.0.250:2375 run -dit --name webapp1 --hostname webapp1 -p 5000:80 charan2135/pipelinetest2:${DOCKER_TAG}
 fi'''
           } 
         }
