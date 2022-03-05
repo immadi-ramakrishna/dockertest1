@@ -34,7 +34,7 @@ pipeline {
             sh '''if [ ! "$(docker -H tcp://10.0.0.250:2375 ps -q -f name=webapp1)" ]; then
     if [ "$(docker -H tcp://10.0.0.250:2375 ps -aq -f status=exited -f name=webapp1)" ]; then
         # cleanup
-        docker -H tcp://10.0.0.250:2375 rm webapp1
+        docker -H tcp://10.0.0.250:2375 stop webapp1
     fi
     # run your container
     docker -H tcp://10.0.0.250:2375 run -dit --name webapp1 --hostname webapp1 -p 7000:80 charan2135/pipelinetest2:${DOCKER_TAG}
