@@ -19,7 +19,6 @@ pipeline {
           steps {  
             sh 'cd /var/lib/jenkins/workspace/pipeline2/dockertest1'
             sh 'cp /var/lib/jenkins/workspace/pipeline2/dockertest1/* /var/lib/jenkins/workspace/pipeline2'
-            sh 'rm -rf /var/lib/jenkins/workspace/pipeline2/dockertest1/*'
             sh 'docker build -t charan2135/pipelinetest2:${DOCKER_TAG} .'
           }
         }
@@ -35,18 +34,18 @@ pipeline {
             sh '''if [ ! "$(docker -H tcp://10.0.0.250:2375 ps -q -f name=webapp1)" ]; then
     if [ "$(docker -H tcp://10.0.0.250:2375 ps -aq -f status=exited -f name=webapp1)" ]; then
         # cleanup
-        docker -H tcp://10.0.0.250:2375 rm webapp1
+        docker -H tcp://10.0.0.250:2375 rm webapp11
     fi
     # run your container
-    docker -H tcp://10.0.0.250:2375 run -dit --name webapp1 --hostname webapp1 -p 5000:80 charan2135/pipelinetest2:${DOCKER_TAG}
+    docker -H tcp://10.0.0.250:2375 run -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:${DOCKER_TAG}
 fi'''
           } 
         }
             
-        stage('Check WebApp Reachablity') {
+        stage('Check webapp1 Reachablity') {
           steps {
             sh 'sleep 10s'
-            sh 'curl http://ec2-13-126-54-65.ap-south-1.compute.amazonaws.com:5000'
+            sh 'curl http://ec2-13-126-54-65.ap-south-1.compute.amazonaws.com:9000'
           } 
         }
     }
