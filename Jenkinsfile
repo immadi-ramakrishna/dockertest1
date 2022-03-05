@@ -37,14 +37,14 @@ pipeline {
                   else
                   echo \'create webapp\'
                   fi'''
-            sh 'docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 7000:80 charan2135/pipelinetest2:${DOCKER_TAG}'
+            sh 'docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 9000:80 charan2135/pipelinetest2:${DOCKER_TAG}'
           } 
         }
             
         stage('Check webapp1 Reachablity') {
           steps {
             sh 'sleep 10s'
-            sh 'curl http://ec2-13-126-54-65.ap-south-1.compute.amazonaws.com:7000'
+            sh 'curl http://ec2-13-126-54-65.ap-south-1.compute.amazonaws.com:9000'
           } 
         }
     }
