@@ -32,8 +32,8 @@ pipeline {
             
         stage('Deploy to Docker Host') {
           steps {
-            sh '''if [ ! "$(docker -H tcp://10.0.0.250:2375 ps -q -f name=webapp)" ]; then
-    if [ "$(docker -H tcp://10.0.0.250:2375 ps -aq -f status=exited -f name=webapp)" ]; then
+            sh '''if [ ! "$(docker -H tcp://10.0.0.250:2375 ps -q -f name=webapp1)" ]; then
+    if [ "$(docker -H tcp://10.0.0.250:2375 ps -aq -f status=exited -f name=webapp1)" ]; then
         # cleanup
         docker -H tcp://10.0.0.250:2375 rm webapp1
     fi
