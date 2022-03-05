@@ -35,10 +35,10 @@ pipeline {
             sh '''if [ ! "$(docker -H tcp://10.0.0.250:2375 ps -q -f name=webapp)" ]; then
     if [ "$(docker -H tcp://10.0.0.250:2375 ps -aq -f status=exited -f name=webapp)" ]; then
         # cleanup
-        docker -H tcp://10.0.0.250:2375 rm webapp
+        docker -H tcp://10.0.0.250:2375 rm webapp1
     fi
     # run your container
-    docker -H tcp://10.0.0.250:2375 run -dit --name webapp --hostname webapp -p 9000:80 nginx:latest
+    docker -H tcp://10.0.0.250:2375 run -dit --name webapp --hostname webapp -p 9000:80 charan2135/pipelinetest2:${DOCKER_TAG}'
 fi'''
           } 
         }
