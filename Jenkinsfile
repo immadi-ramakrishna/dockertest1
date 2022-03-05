@@ -19,7 +19,6 @@ pipeline {
           steps {  
             sh 'cd /var/lib/jenkins/workspace/pipeline2/dockertest1'
             sh 'cp /var/lib/jenkins/workspace/pipeline2/dockertest1/* /var/lib/jenkins/workspace/pipeline2'
-	    sh 'rm -rf /var/lib/jenkins/workspace/pipeline2/dockertest1/*'
             sh 'docker build -t charan2135/pipelinetest2:${DOCKER_TAG} .'
           }
         }
@@ -38,9 +37,8 @@ pipeline {
         docker -H tcp://10.0.0.250:2375 stop webapp1
     fi
     # run your container
-    echo 'create container'
+    docker -H tcp://10.0.0.250:2375 run -dit --name webapp1 --hostname webapp1 -p 7000:80 charan2135/pipelinetest2:${DOCKER_TAG}
 fi'''
-	sh 'docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 7000:80 charan2135/pipelinetest2:${DOCKER_TAG}'
           } 
         }
             
@@ -59,3 +57,4 @@ def getVersion() {
   def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
   return commitHash
 }
+
