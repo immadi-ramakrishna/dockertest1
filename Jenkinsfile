@@ -39,12 +39,12 @@ pipeline {
                   echo \'create webapp1\'
                   fi
                   sleep 3s
-                  docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webaap1 -p 7000:80 charan2135/pipelinetest2:${DOCKER_TAG}
+                  docker -H tcp://10.0.0.250:2375 run --rm -dit --name webapp1 --hostname webapp1 -p 7000:80 charan2135/pipelinetest2:${DOCKER_TAG}
                '''
           } 
         }
             
-        stage('Check webapp11 Reachablity') {
+        stage('Check webapp1 Reachablity') {
           steps {
             sh 'sleep 10s'
             sh 'curl http://ec2-13-126-54-65.ap-south-1.compute.amazonaws.com:7000'
